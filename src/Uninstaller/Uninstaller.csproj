@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <PlatformTarget>x64</PlatformTarget>
+    <AssemblyName>Uninstall</AssemblyName>
+    <RootNamespace>ZapretAppPff.Uninstaller</RootNamespace>
+    <ApplicationIcon>../Zapret_app_Pff/Assets/Pilot.ico</ApplicationIcon>
+    <ApplicationManifest>../Installer/app.manifest</ApplicationManifest>
+    <Version>1.0.6</Version>
+    <Company>Zapret_app_Pff</Company>
+    <Product>Zapret_app_Pff</Product>
+    <Description>Zapret_app_Pff Uninstaller</Description>
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms"/>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all"/>
+    <Compile Include="../Installer/InstallationRegistration.cs" Link="InstallationRegistration.cs"/>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,410 @@
+<Window x:Class="ZapretAppPff.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:ZapretAppPff"
+    xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+    Title="Zapret_app_Pff" Icon="Assets/Pilot.ico" Width="1080" Height="780"
+    MinWidth="830" MinHeight="600" WindowStartupLocation="CenterScreen"
+    WindowStyle="None" FontFamily="Segoe UI Variable Text, Segoe UI" FontSize="14"
+    Background="{DynamicResource WindowBrush}" Foreground="{DynamicResource TextBrush}"
+    UseLayoutRounding="True" SnapsToDevicePixels="True">
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome CaptionHeight="38" ResizeBorderThickness="6" GlassFrameThickness="0" CornerRadius="0"/>
+    </shell:WindowChrome.WindowChrome>
+    <Window.Resources>
+        <Style x:Key="CaptionButton" TargetType="Button" BasedOn="{StaticResource IconButton}">
+            <Setter Property="shell:WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+            <Setter Property="Width" Value="42"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+        <Style x:Key="SettingsSection" TargetType="Border" BasedOn="{StaticResource Panel}">
+            <Setter Property="Padding" Value="19"/>
+            <Setter Property="Margin" Value="0,0,0,13"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="204"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="38"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.RowSpan="2" Background="{DynamicResource RailBrush}"
+            BorderThickness="0,0,1,0" BorderBrush="{DynamicResource StrokeBrush}"/>
+        <Border Grid.Column="1" Grid.RowSpan="2">
+            <Border.Background>
+                <RadialGradientBrush Center="0.88,0.03" GradientOrigin="0.88,0.03" RadiusX="0.7" RadiusY="0.58">
+                    <GradientStop Color="{DynamicResource AccentHaloColor}" Offset="0"/>
+                    <GradientStop Color="{DynamicResource AccentClearColor}" Offset="1"/>
+                </RadialGradientBrush>
+            </Border.Background>
+        </Border>
+
+        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,3,6,3">
+            <Button Style="{StaticResource CaptionButton}" Click="MinimizeClick" ToolTip="Свернуть" AutomationProperties.Name="Свернуть">
+                <Path Data="M 0,0 L 11,0" Stroke="{DynamicResource MutedBrush}" StrokeThickness="1.4"/>
+            </Button>
+            <Button Style="{StaticResource CaptionButton}" Click="MaximizeClick" ToolTip="Развернуть или восстановить" AutomationProperties.Name="Развернуть или восстановить">
+                <Path Data="M 0,0 H 10 V 8 H 0 Z" Stroke="{DynamicResource MutedBrush}" StrokeThickness="1.2"/>
+            </Button>
+            <Button Style="{StaticResource CaptionButton}" Click="CloseClick" ToolTip="Свернуть в трей" AutomationProperties.Name="Свернуть в трей">
+                <Path Data="M 0,0 L 9,9 M 9,0 L 0,9" Stroke="{DynamicResource TextBrush}" StrokeThickness="1.3"/>
+            </Button>
+        </StackPanel>
+
+        <Grid Grid.Row="1" Margin="17,11,17,18">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="1,0,0,31">
+                    <Border Background="{DynamicResource AccentBrush}" Width="33" Height="33" CornerRadius="9">
+                        <Path Width="22" Height="13" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Data="M 0,7 L 5,7 L 9,0 L 13,13 L 17,5 L 22,5"
+                            Stroke="{DynamicResource AccentInkBrush}" StrokeThickness="2.2"
+                            StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round"/>
+                    </Border>
+                    <TextBlock Text="Zapret_app_Pff" FontSize="16" FontWeight="Bold" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                </StackPanel>
+                <RadioButton x:Name="StrategiesNav" GroupName="Pages" Style="{StaticResource Navigation}" Checked="NavigateClick"
+                    AutomationProperties.Name="Стратегии" IsChecked="True" Margin="0,0,0,5">
+                    <StackPanel Orientation="Horizontal">
+                        <Path Data="M 1,14 L 1,11 M 6,14 L 6,7 M 11,14 L 11,4 M 16,14 L 16,1"
+                            Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}"
+                            StrokeThickness="2" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Margin="0,0,10,0"/>
+                        <AccessText Text="Стратегии"/>
+                    </StackPanel>
+                </RadioButton>
+                <RadioButton x:Name="SettingsNav" GroupName="Pages" Style="{StaticResource Navigation}" Checked="NavigateClick"
+                    AutomationProperties.Name="Настройки">
+                    <StackPanel Orientation="Horizontal">
+                        <Path Data="M 0,3 H 16 M 0,11 H 16 M 5,0 V 6 M 11,8 V 14"
+                            Stroke="{Binding Foreground, RelativeSource={RelativeSource AncestorType=RadioButton}}"
+                            StrokeThickness="1.8" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Margin="0,1,10,0"/>
+                        <AccessText Text="Настройки"/>
+                    </StackPanel>
+                </RadioButton>
+            </StackPanel>
+
+            <StackPanel Grid.Row="2">
+                <Border Height="1" Background="{DynamicResource StrokeBrush}" Margin="1,0,1,12"/>
+                <Grid Margin="3,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Flowseal" Foreground="{DynamicResource MutedBrush}" FontSize="13"/>
+                    <TextBlock x:Name="SidebarVersion" Grid.Column="1" Text="—" FontSize="13"/>
+                </Grid>
+                <TextBlock Text="Windows x64" Foreground="{DynamicResource QuietBrush}" FontSize="12" Margin="3,7,0,0"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="1" Margin="26,10,26,16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="DashboardPage">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Margin="0,0,0,21">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <TextBlock Text="Стратегии" FontWeight="Bold" FontSize="32"/>
+                        <TextBlock x:Name="CheckTime" Text="Результаты проверки портов" Style="{StaticResource MutedText}" Margin="1,4,10,0"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                        <Button x:Name="CancelButton" Content="Отмена" Click="CancelClick" Margin="0,0,8,0" Visibility="Collapsed"/>
+                        <Button x:Name="FullTestButton" Content="Полный тест" Click="FullTestClick" MinHeight="39" Margin="0,0,8,0"
+                            ToolTip="Проверить все стратегии Flowseal"/>
+                        <Button x:Name="TestButton" Click="TestClick" MinHeight="39"
+                            ToolTip="Перепроверить лидеров или расширить тест при ухудшении результатов">
+                            <StackPanel Orientation="Horizontal">
+                                <Path VerticalAlignment="Center" Stroke="{DynamicResource AccentTextBrush}" StrokeThickness="1.8"
+                                    Data="M 1,7 L 5,7 L 8,1 L 12,13 L 15,7 L 19,7" Margin="0,0,8,0"
+                                    StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeLineJoin="Round"/>
+                                <TextBlock Text="Тест лучшего"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
+                <Border Grid.Row="1" Style="{StaticResource Panel}" CornerRadius="17" Margin="0,0,0,21">
+                    <Grid>
+                        <Border CornerRadius="16">
+                            <Border.Background>
+                                <RadialGradientBrush Center="0.92,0.48" GradientOrigin="0.85,0.36" RadiusX="0.78" RadiusY="1.6">
+                                    <GradientStop Color="{DynamicResource AccentGlowColor}" Offset="0"/>
+                                    <GradientStop Color="{DynamicResource AccentClearColor}" Offset="1"/>
+                                </RadialGradientBrush>
+                            </Border.Background>
+                        </Border>
+                        <Grid Margin="21,17">
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal">
+                                <Ellipse x:Name="ConnectionDot" Width="8" Height="8" Fill="{DynamicResource QuietBrush}" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                <TextBlock x:Name="ConnectionLabel" Text="Отключено" FontSize="13" FontWeight="SemiBold"/>
+                            </StackPanel>
+                            <TextBlock x:Name="HeroTitle" Grid.Row="1" Text="Установка Flowseal" FontSize="25" FontWeight="Bold"
+                                TextTrimming="CharacterEllipsis" VerticalAlignment="Center" Margin="0,6,10,4"/>
+                            <TextBlock x:Name="HeroDetail" Grid.Row="2" Text="Стратегии появятся после загрузки." Style="{StaticResource MutedText}"
+                                FontSize="13" Margin="0,0,13,0"/>
+                            <Button x:Name="PowerButton" Grid.Column="1" Grid.RowSpan="3" Style="{StaticResource PrimaryButton}"
+                                Content="Включить" Click="PowerClick" MinWidth="133" MinHeight="43" Padding="16,9"
+                                HorizontalAlignment="Right" VerticalAlignment="Center" IsEnabled="False"/>
+                        </Grid>
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="2" Style="{StaticResource Panel}" Padding="0">
+                    <Grid>
+                        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+                        <Grid Margin="17,13,31,11">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="36"/><ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="65"/><ColumnDefinition Width="98"/><ColumnDefinition Width="30"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="№" Foreground="{DynamicResource QuietBrush}" FontSize="12"/>
+                            <TextBlock Grid.Column="1" Text="Стратегия" Foreground="{DynamicResource MutedBrush}" FontWeight="SemiBold" FontSize="12"/>
+                            <TextBlock Grid.Column="2" Text="Порты" Foreground="{DynamicResource MutedBrush}" FontWeight="SemiBold" FontSize="12"
+                                ToolTip="Число ответивших пар адрес:порт"/>
+                            <TextBlock Grid.Column="3" Text="Задержка" Foreground="{DynamicResource MutedBrush}" FontWeight="SemiBold" FontSize="12"
+                                ToolTip="Медианное время до HTTP-ответа"/>
+                        </Grid>
+                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="8,0,8,7">
+                            <ItemsControl x:Name="ProfileRows">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Margin="0,0,0,3" Padding="8,3,8,3" CornerRadius="8" BorderThickness="1">
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                                    <Setter Property="Background" Value="Transparent"/>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="{DynamicResource HoverBrush}"/>
+                                                        </Trigger>
+                                                        <DataTrigger Binding="{Binding IsBest}" Value="True">
+                                                            <Setter Property="Background" Value="{DynamicResource AccentTintBrush}"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding IsActive}" Value="True">
+                                                            <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                            <Grid MinHeight="35">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="36"/><ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="65"/><ColumnDefinition Width="98"/><ColumnDefinition Width="30"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="{Binding Rank}" FontSize="12" Foreground="{DynamicResource QuietBrush}" VerticalAlignment="Center"/>
+                                                <Grid Grid.Column="1" Margin="0,0,8,0">
+                                                    <Grid.ColumnDefinitions><ColumnDefinition Width="Auto" MaxWidth="220"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                                                    <TextBlock Grid.Column="1" Text="{Binding Label}" FontSize="11" Foreground="{DynamicResource AccentTextBrush}"
+                                                        TextTrimming="CharacterEllipsis" VerticalAlignment="Center" Margin="8,0,0,0"/>
+                                                </Grid>
+                                                <TextBlock Grid.Column="2" Text="{Binding Ports}" ToolTip="{Binding Detail}" ToolTipService.ShowDuration="18000"
+                                                    Foreground="{DynamicResource MutedBrush}" VerticalAlignment="Center"/>
+                                                <TextBlock Grid.Column="3" Text="{Binding Latency}" Foreground="{DynamicResource MutedBrush}" VerticalAlignment="Center"/>
+                                                <Button Grid.Column="4" Style="{StaticResource IconButton}" Click="ConnectRowClick"
+                                                    IsEnabled="{Binding CanConnect}" Tag="{Binding Profile}" ToolTip="{Binding Action}"
+                                                    AutomationProperties.Name="{Binding Action}">
+                                                    <Path Data="M 0,5 H 10 M 6,1 L 10,5 L 6,9" Stroke="{DynamicResource AccentTextBrush}"
+                                                        StrokeThickness="1.5" StrokeEndLineCap="Round" StrokeStartLineCap="Round" StrokeLineJoin="Round"/>
+                                                </Button>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                        <TextBlock x:Name="EmptyProfiles" Grid.Row="1" Text="Список стратегий пока пуст." Style="{StaticResource MutedText}"
+                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <ScrollViewer x:Name="SettingsPage" Visibility="Collapsed" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <StackPanel Margin="0,0,8,0">
+                    <TextBlock Text="Настройки" FontWeight="Bold" FontSize="32" Margin="0,0,0,18"/>
+
+                    <Border Style="{StaticResource SettingsSection}">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                                <TextBlock Text="Оформление" FontSize="18" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <TextBlock Text="Светлая тема" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                                    <CheckBox x:Name="LightThemeToggle" Style="{StaticResource Switch}" Click="ThemeChanged"
+                                        AutomationProperties.Name="Светлая тема"/>
+                                </StackPanel>
+                            </Grid>
+                            <TextBlock Text="Акцентный цвет" Style="{StaticResource FieldLabel}" Margin="0,15,0,7"/>
+                            <DockPanel LastChildFill="True">
+                                <local:AccentWheel x:Name="AccentPicker" DockPanel.Dock="Left" Width="168" Height="168" Focusable="True"
+                                    Cursor="Cross" ColorChanged="AccentChanged" AutomationProperties.Name="Круговая палитра акцентного цвета"
+                                    AutomationProperties.HelpText="Выберите цвет мышью или клавишами со стрелками."/>
+                                <StackPanel Margin="18,0,0,0" Width="170" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <Border Background="{DynamicResource AccentBrush}" BorderBrush="{DynamicResource StrokeBrush}"
+                                        BorderThickness="1" CornerRadius="6" Height="24" Margin="0,0,0,12"
+                                        ToolTip="Выбранный акцентный цвет"/>
+                                    <TextBlock Text="Яркость" Style="{StaticResource FieldLabel}"/>
+                                    <Slider x:Name="AccentBrightness" Minimum="0" Maximum="1" SmallChange=".025" LargeChange=".1"
+                                        Style="{StaticResource BrightnessSlider}" ValueChanged="AccentBrightnessChanged"
+                                        AutomationProperties.Name="Яркость акцентного цвета"/>
+                                </StackPanel>
+                            </DockPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <StackPanel x:Name="OperationalSettings">
+                        <Border Style="{StaticResource SettingsSection}">
+                            <StackPanel>
+                                <TextBlock Text="При запуске" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,11"/>
+                                <DockPanel Margin="0,0,0,10" LastChildFill="True">
+                                    <CheckBox x:Name="AutoUpdateChoice" DockPanel.Dock="Right" Style="{StaticResource Switch}" Click="StartupChanged"
+                                        AutomationProperties.Name="Устанавливать обновления Flowseal при запуске"/>
+                                    <StackPanel Margin="0,0,12,0">
+                                        <TextBlock Text="Устанавливать обновления Flowseal при запуске" TextWrapping="Wrap" />
+                                        <TextBlock Text="Уведомления о новых релизах приходят при любом положении тумблера."
+                                            Style="{StaticResource MutedText}" FontSize="12" Margin="0,3,0,0"/>
+                                    </StackPanel>
+                                </DockPanel>
+                                <DockPanel Margin="0,0,0,10" LastChildFill="True">
+                                    <CheckBox x:Name="AutoTestChoice" DockPanel.Dock="Right" Style="{StaticResource Switch}" Click="StartupChanged"
+                                        AutomationProperties.Name="Автоматически проверять стратегии"/>
+                                    <TextBlock Text="Проверять стратегии автоматически" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                                </DockPanel>
+                                <DockPanel Margin="0,0,0,10" LastChildFill="True">
+                                    <CheckBox x:Name="TrayChoice" DockPanel.Dock="Right" Style="{StaticResource Switch}" Click="StartupChanged"
+                                        AutomationProperties.Name="Запускать в трее при входе в Windows"/>
+                                    <TextBlock Text="Запускать в трее при входе в Windows" VerticalAlignment="Center" Margin="0,0,12,0"/>
+                                </DockPanel>
+                                <DockPanel LastChildFill="True">
+                                    <CheckBox x:Name="ConnectChoice" DockPanel.Dock="Right" Style="{StaticResource Switch}" Click="StartupChanged"
+                                        AutomationProperties.Name="Автоподключение к лучшей стратегии"/>
+                                    <StackPanel Margin="0,0,12,0">
+                                        <TextBlock Text="Автоподключение к лучшей стратегии"/>
+                                        <TextBlock Text="Включает также запуск в трее." Style="{StaticResource MutedText}" FontSize="12" Margin="0,3,0,0"/>
+                                    </StackPanel>
+                                </DockPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource SettingsSection}">
+                            <StackPanel>
+                                <TextBlock Text="Фильтры Flowseal" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,14"/>
+                                <Grid Margin="0,0,0,11">
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="12"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                    <StackPanel>
+                                        <TextBlock Text="Игровой фильтр" Style="{StaticResource FieldLabel}"/>
+                                        <ComboBox x:Name="GameChoice" AutomationProperties.Name="Режим игрового фильтра">
+                                            <ComboBoxItem Content="Выключен"/>
+                                            <ComboBoxItem Content="TCP и UDP"/>
+                                            <ComboBoxItem Content="Только TCP"/>
+                                            <ComboBoxItem Content="Только UDP"/>
+                                        </ComboBox>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock Text="Режим IPSet" Style="{StaticResource FieldLabel}"/>
+                                        <ComboBox x:Name="IpSetChoice" AutomationProperties.Name="Режим IPSet">
+                                            <ComboBoxItem Content="Выключен"/>
+                                            <ComboBoxItem Content="По списку Flowseal"/>
+                                            <ComboBoxItem Content="Все IP-адреса"/>
+                                        </ComboBox>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Margin="0,0,0,11">
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="12"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                    <StackPanel>
+                                        <TextBlock Text="Игровые порты TCP" Style="{StaticResource FieldLabel}"/>
+                                        <TextBox x:Name="TcpField" MaxLength="512" AutomationProperties.Name="Игровые порты TCP"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock Text="Игровые порты UDP" Style="{StaticResource FieldLabel}"/>
+                                        <TextBox x:Name="UdpField" MaxLength="512" AutomationProperties.Name="Игровые порты UDP"/>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Margin="0,0,0,13">
+                                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="12"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+                                    <StackPanel>
+                                        <TextBlock Text="Фейк Discord UDP" Style="{StaticResource FieldLabel}"/>
+                                        <ComboBox x:Name="DiscordFakeChoice" DisplayMemberPath="Label" AutomationProperties.Name="Фейк Discord UDP"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock Text="Фейк игрового UDP" Style="{StaticResource FieldLabel}"/>
+                                        <ComboBox x:Name="GameFakeChoice" DisplayMemberPath="Label" AutomationProperties.Name="Фейк игрового UDP"/>
+                                    </StackPanel>
+                                </Grid>
+                                <Expander Header="Пользовательские списки" Foreground="{DynamicResource TextBrush}" Margin="0,0,0,13">
+                                    <StackPanel Margin="0,11,0,0">
+                                        <TextBlock Text="Дополнительные домены, по одному на строку" Style="{StaticResource FieldLabel}"/>
+                                        <TextBox x:Name="ExtraDomainsField" Height="68" MaxLength="50000" AcceptsReturn="True" VerticalContentAlignment="Top"
+                                            VerticalScrollBarVisibility="Auto" Margin="0,0,0,10" AutomationProperties.Name="Дополнительные домены"/>
+                                        <TextBlock Text="Исключённые домены" Style="{StaticResource FieldLabel}"/>
+                                        <TextBox x:Name="ExcludedDomainsField" Height="68" MaxLength="50000" AcceptsReturn="True" VerticalContentAlignment="Top"
+                                            VerticalScrollBarVisibility="Auto" Margin="0,0,0,10" AutomationProperties.Name="Исключённые домены"/>
+                                        <TextBlock Text="Исключённые IP и подсети CIDR" Style="{StaticResource FieldLabel}"/>
+                                        <TextBox x:Name="ExcludedNetworksField" Height="68" MaxLength="50000" AcceptsReturn="True" VerticalContentAlignment="Top"
+                                            VerticalScrollBarVisibility="Auto" AutomationProperties.Name="Исключённые IP и подсети CIDR"/>
+                                    </StackPanel>
+                                </Expander>
+                                <Button Content="Применить фильтры" Style="{StaticResource PrimaryButton}" Click="ApplyFiltersClick" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource SettingsSection}">
+                            <StackPanel>
+                                <TextBlock Text="Обновления и hosts" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,11"/>
+                                <TextBlock x:Name="FlowsealUpdateText" Style="{StaticResource MutedText}" Margin="0,0,0,8" Visibility="Collapsed"/>
+                                <WrapPanel>
+                                    <Button Content="Обновить Flowseal" Click="UpdateClick" Margin="0,0,7,7"/>
+                                    <Button Content="Обновить IPSet" Click="IpSetClick" Margin="0,0,7,7"/>
+                                    <Button Content="Обновить hosts" Click="HostsClick" Margin="0,0,7,7"/>
+                                    <Button Content="Убрать записи из hosts" Click="RestoreHostsClick" Margin="0,0,0,7"/>
+                                </WrapPanel>
+                                <TextBlock Text="Обновление hosts добавляет отдельный блок Flowseal." Style="{StaticResource MutedText}" FontSize="12"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource SettingsSection}">
+                            <StackPanel>
+                                <TextBlock Text="Диагностика" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,11"/>
+                                <WrapPanel>
+                                    <Button Content="Проверить систему" Click="DiagnoseClick" Margin="0,0,7,7"/>
+                                    <Button Content="Включить TCP timestamps" Click="TimestampsClick" Margin="0,0,7,7"/>
+                                    <Button x:Name="RemoveLegacyButton" Content="Удалить прежнюю службу" Click="RemoveLegacyClick" Margin="0,0,0,7"
+                                        Visibility="Collapsed"/>
+                                </WrapPanel>
+                                <TextBlock x:Name="DiagnosticText" Style="{StaticResource MutedText}" FontSize="13"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+
+            <Grid Grid.Row="1" Margin="1,9,1,0" MinHeight="21">
+                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                <TextBlock x:Name="StatusText" Style="{StaticResource MutedText}" FontSize="12" VerticalAlignment="Center"
+                    AutomationProperties.LiveSetting="Polite" Text="Подготовка…"/>
+                <ProgressBar x:Name="SweepProgress" Grid.Column="1" Width="110" Height="4" Margin="10,0,0,0"
+                    VerticalAlignment="Center" Foreground="{DynamicResource AccentBrush}" Background="{DynamicResource StrokeBrush}"
+                    Visibility="Collapsed"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

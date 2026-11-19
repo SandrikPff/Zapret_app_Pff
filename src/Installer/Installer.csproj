@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <PlatformTarget>x64</PlatformTarget>
+    <AssemblyName>Zapret_app_Pff</AssemblyName>
+    <RootNamespace>ZapretAppPff.Installer</RootNamespace>
+    <ApplicationIcon>../Zapret_app_Pff/Assets/Pilot.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Version>1.0.6</Version>
+    <Company>Zapret_app_Pff</Company>
+    <Product>Zapret_app_Pff</Product>
+    <Description>Zapret_app_Pff Setup for Windows x64</Description>
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.IO.Compression"/>
+    <Reference Include="System.Windows.Forms"/>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all"/>
+    <EmbeddedResource Include="$(InstallerPayload)" LogicalName="ZapretAppPff.Installation.zip" Condition="'$(InstallerPayload)' != ''"/>
+  </ItemGroup>
+  <Target Name="EnsurePayload" BeforeTargets="BeforeBuild" Condition="!Exists('$(InstallerPayload)')">
+    <Error Text="Build the installer through Build.ps1 to include its Windows payload."/>
+  </Target>
+</Project>
